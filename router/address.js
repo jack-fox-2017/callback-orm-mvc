@@ -17,20 +17,20 @@ router.get('/', (req, res)=>{
   })
 })
 
-router.get('/', (req, res)=>{
+router.post('/', (req, res)=>{
   address_model.createData(connection, req.body)
     res.redirect('/address')
 })
 
 router.get('/edit/:id', (req, res)=>{
-  address_model.findById(connection, (err,rowsAddress)=>{
-  // contacts_model.findByAll(connection, (err, rowsContacts)=>{
+  address_model.findById(connection, req.params ,(err,rowsAddress)=>{
+  contacts_model.findAll(connection, (err, rowsContacts)=>{
     res.render('editaddress',{data:rowsAddress,dataContacts:rowsContacts})
   })
-  // })
+  })
 })
 
-router.get('/edit/:id', (req, res)=>{
+router.post('/edit/:id', (req, res)=>{
   address_model.update(connection, req.body, req.params)
     res.redirect('/address')
 })
