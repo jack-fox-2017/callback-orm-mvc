@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Addresses</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.0/css/bulma.min.css">
+  </head>
+  <center>
+  <body>
+    <section class="section">
+    <div class="container">
+  <h1 class="title"><strong>Addresses</strong></h1>
+    <h2>
+          <table class="table">
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+          <%var i = 1%>
+          <%dataA.forEach(d => {%>
+            <tr>
+            <td><%=i%><%i+=1%></td>
+            <td><%=d.name%></td>
+            <td><%=d.telp_number%></td>
+            <td><%=d.email%></td>
+            <td> <a href="/addresses/edit/<%=d.id%>">Edit</a> </td>
+            <td> <a href="/addresses/delete/<%=d.id%>">Delete</a> </td>
+          <%})%>
+          </tr>
+</table>
+    </h2>
+    <h3>Add Address</h3>
+    <h4>
+      <form action="/addresses" method="post">
+          Name:<br>
+          <input type="text" name="name" placeholder="name"><br>
+          Phone number:<br>
+          <input type="text" name="telp_number" placeholder="phone number"> <br>
+          Email:<br>
+          <input type="text" name="email" placeholder="email"><br>
+          <br>
+          <button class="button is-primary" type="submit">Add</button>
+        </form>
+    </h4>
+    <br>
+  <a href="/">
+    <span class="icon">
+      <i class="fa fa-home">Home</i>
+    </h2>
+  </div>
+</section>
+  </span>
+  </a>
+  </center>
+  </body>
+</html>
