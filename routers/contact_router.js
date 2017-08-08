@@ -20,7 +20,7 @@ router.get('/',(req,res)=>{
 
 router.post('/',(req,res)=>{
   contacts.createData(db, req.body, (err,rows)=>{
-    res.render('contacts', {dataC:rows})
+    res.redirect('/contacts')
   })
 })
 

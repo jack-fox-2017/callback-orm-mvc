@@ -16,9 +16,10 @@
           <table class="table">
           <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>Phone Number</th>
-            <th>Email</th>
+            <th>Street</th>
+            <th>City</th>
+            <th>Zip Code</th>
+            <th>Contact id</th>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
@@ -26,9 +27,10 @@
           <%dataA.forEach(d => {%>
             <tr>
             <td><%=i%><%i+=1%></td>
-            <td><%=d.name%></td>
-            <td><%=d.telp_number%></td>
-            <td><%=d.email%></td>
+            <td><%=d.street%></td>
+            <td><%=d.city%></td>
+            <td><%=d.zip_code%></td>
+            <td><%=d.contact_id%></td>
             <td> <a href="/addresses/edit/<%=d.id%>">Edit</a> </td>
             <td> <a href="/addresses/delete/<%=d.id%>">Delete</a> </td>
           <%})%>
@@ -38,13 +40,25 @@
     <h3>Add Address</h3>
     <h4>
       <form action="/addresses" method="post">
-          Name:<br>
-          <input type="text" name="name" placeholder="name"><br>
-          Phone number:<br>
-          <input type="text" name="telp_number" placeholder="phone number"> <br>
-          Email:<br>
-          <input type="text" name="email" placeholder="email"><br>
-          <br>
+          <input type="text" name="street" placeholder="Street"><br>
+          City:<br>
+          <input type="text" name="city" placeholder="City"> <br>
+          Zip Code:<br>
+          <input type="text" name="zip_code" placeholder="Zip Code"><br>
+          Contact Id:<br>
+            <div class="field has-addons has-addons-centered" >
+              <div class="control">
+                <div class="select">
+                  <select>
+                    Street:<br>
+                    <%dataC.forEach(d => {%>
+                    <option value="<%=d.id%>"><%=d.name%></option>
+                    <%})%>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <br>
           <button class="button is-primary" type="submit">Add</button>
         </form>
     </h4>
