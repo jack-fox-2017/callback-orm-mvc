@@ -47,18 +47,16 @@ router.get('/address/delete/:id', (req, res) => {
 })
 
 router.get('/address_with_contact/:id', (req, res) =>{
-  addressModel.findAll(db.connection, (err, rows) => {
-    contactModel.findAll(db.connection, (err, data)=>{
-      for(let i=0; i<rows.length; i++){
-        for (let j = 0; j < data.length; j++) {
-          if(rows[i].contact_id == data[j].id){
-            rows[i].name = data[j].name;
-            rows[i].company = data[j].company;
+  addressModel.findById(db.connection, req.params, (err, rows) => {
+      contactModel.findAll(db.connection, (err, data)=>{
+        for (var i = 0; i < data.length; i++) {
+          if(rows[0].contact_id == data[i].id){
+            rows[0].company = data[i].company;
+            rows[0].name = data[i].name;
           }
         }
-      }
-      res.render('detail_address', {address: rows})
-    })
+        res.render('detail_address', {address: rows})
+      })
   })
 })
 
