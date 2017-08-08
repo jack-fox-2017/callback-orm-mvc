@@ -9,32 +9,34 @@ class Contacts {
     let hitung = 0;
 
     rows.forEach(row =>{
-        conn.all(`SELECT groups_id, contacts_id, name_of_group FROM ContactGroups
+      var data_contactsingroup=[];
+        conn.each(`SELECT groups_id, contacts_id, name_of_group FROM ContactGroups
           JOIN Groups
           ON ContactGroups.groups_id = Groups.id
-          WHERE ContactGroups.contacts_id = ${row.id}`,(err, data_contactsingroup) => {
+          WHERE ContactGroups.contacts_id = ${row.id}`,(err, data_perObject) => {
+            data_contactsingroup.push(data_perObject);
 
-            if (!err && data_contactsingroup.length>0) {
-              console.log('INI ROW NYA'+JSON.stringify(row));
-              // row['contact_id'] = rows.id
-                  row['contact_name']=row.name;
-                  row['telp_number']=row.telp_number;
-                  row['company']=row.company;
-                  row['email']=row.email;
-              // console.log(data_contactsingroup);
-              // console.log(JSON.stringify(row)+'this is row');
-              var arr=[]
-                for (let i=0; i<data_contactsingroup.length; i++) {
-                  arr.push(data_contactsingroup[i].name_of_group);
-                }
-              row['group_names']=arr;
-            }
-          hitung++;
-          if(hitung == rows.length) {
-            // console.log(rows);
-            cb(rows);
+        }, function(){
+          if (data_contactsingroup.length>0) {
+            console.log('INI ROW NYA'+JSON.stringify(row));
+            // row['contact_id'] = rows.id
+                row['contact_name']=row.name;
+                row['telp_number']=row.telp_number;
+                row['company']=row.company;
+                row['email']=row.email;
+            // console.log(data_contactsingroup);
+            // console.log(JSON.stringify(row)+'this is row');
+            var arr=[]
+              for (let i=0; i<data_contactsingroup.length; i++) {
+                arr.push(data_contactsingroup[i].name_of_group);
+              }
+            row['group_names']=arr;
           }
-
+        hitung++;
+        if(hitung == rows.length) {
+          // console.log(rows);
+          cb(rows);
+        }
         }
       )
     })
@@ -42,21 +44,24 @@ class Contacts {
 
   static findAll(conn, cb) {
     // console.log(this.hello());
-    var manipulate = this.manipulateGroups; //masalah scope this cuma bisa d dalem object gk bisa d dalem all
-    conn.all(`SELECT * FROM Contacts`, function (err, dGroup) {
-      manipulate(conn, dGroup, cb);
-        // console.log(dataManipulated);
-        // res.render('group', {data: dataManipulated});
+    var temp = [];
+    // var manipulate = this.manipulateGroups; //masalah scope this cuma bisa d dalem object gk bisa d dalem all
+    conn.each(`SELECT * FROM Contacts`, function (err, dGroup) {
+      // manipulate(conn, dGroup, cb);
+      //   // console.log(dataManipulated);
+      //   // res.render('group', {data: dataManipulated});
+      temp.push(dGroup);
+    }, function (){
+        cb(temp);
       })
     }
 
   static findById(conn, id, cb) {
-    conn.all(`SELECT * FROM Contacts WHERE id = ${id}`, function (err, rows) {
-      if(!err) {
-        cb(rows)
-      } else {
-        cb(null)
-      }
+    var temp = [];
+    conn.each(`SELECT * FROM Contacts WHERE id = ${id}`, function (err, rows) {
+      temp.push(rows);
+    }, function() {
+        cb(temp)
     })
   }
 
@@ -86,12 +91,11 @@ class Contacts {
   // }
 
   static showContact(conn, cb){
-      conn.all(`SELECT * FROM Contacts`, function (err, rows2) {
-        if(!err) {
-          cb(rows2)
-        } else {
-          cb(null)
-        }
+      var temp = [];
+      conn.each(`SELECT * FROM Contacts`, function (err, rows2) {
+        temp.push(rows2)
+      }, function(){
+        cb(temp)
       })
   }
 

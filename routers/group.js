@@ -13,8 +13,13 @@ let dbModel = new DbModel('./db/data.db');
 const connection = dbModel.connection;
 
 router.get('/', function(req,res) {
+  console.log('lolololo');
   Groups.findAll(connection, function(rows) {
-      res.render('group', {data: rows});
+    // res.render('group', {data: rows});
+    console.log('rowss nya adalah'+rows);
+    Groups.manipulateGroups(connection, rows, function(rows2) {
+      res.render('group', {data: rows2});
+    })
   })
 });
 

@@ -13,8 +13,10 @@ const connection = dbModel.connection;
 
 router.get('/', function(req,res) {
   Contacts.findAll(connection, function(rows) {
-    Groups.showGroup(connection, function(rows2) {
-      res.render('contact', {data: rows, data_group:rows2});
+    Contacts.manipulateGroups(connection, rows, function(rows3) {
+        Groups.showGroup(connection, function(rows2) {
+          res.render('contact', {data: rows3, data_group:rows2});
+        })
     })
   })
 });
