@@ -97,6 +97,15 @@ class Group{
       console.log(result);
       callback(result);
     }
+
+    getAssign(){
+
+    }
+
+    static createAssign(conn, body, params){
+      conn.run(`INSERT INTO CG (ContactId, GrupId) VALUES (${body.ContactId}, ${params.id})`)
+    }
+
 }
 
 module.exports = Group;

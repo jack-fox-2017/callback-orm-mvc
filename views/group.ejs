@@ -20,13 +20,13 @@
           <td class="text-center">Group ID</td>
           <td>Group Name </td>
           <td>Contact Name </td>
-          <td>Company</td>
+          <!-- <td>Company</td> -->
           <td class="text-center">Action</td>
         </tr>
         <% let i = 1; groupData.forEach(group => { %>
           <tr>
             <td class="text-center"><%= i++ %></td>
-            <td class="text-center"><%= group.id %></td>
+            <td class="text-center"><%= group.GrupId %></td>
             <td><%= group.group_name %></td>
             <td><ol>
                   <% group.contact_name.forEach(name => { %>
@@ -34,7 +34,7 @@
                   <% }) %>
                 </ol>
             </td>
-            <td><%= group.company %></td>
+            <!-- <td><%= group.company %></td> -->
             <td class="text-center">
               <a href="/groups/<%= group.GrupId %>/edit"><button type="button" name="button" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span> Edit</button></a>
               <a href="/groups/<%= group.GrupId %>/delete"><button type="button" name="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button></a>

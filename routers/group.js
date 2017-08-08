@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router()
 const Group = require('../models/group');
+const Contact = require('../models/contact');
 const dbModel = require('../models/index');
 
 let dataModel = new dbModel('./db/data.db')
@@ -32,6 +33,19 @@ router.post('/:id/edit', (req, res) => {
 router.get('/:id/delete', (req, res) => {
   Group.destroyData(conn, req.params)
   res.redirect('/groups')
+})
+
+router.get('/:id/assign-contact', (req, res) => {
+  Group.findById(conn, req.params, (err, data) => {
+    Contact.findAll(conn, (err, dataKontak) => {
+      res.render('assign-contact', {dataGroup: data[0], kontak: dataKontak})
+    })
+  })
+})
+
+router.post('/:id/assign-contact', (req, res) => {
+  Group.createAssign(conn, req.body, req.params)
+  res.redirect(`/groups/`)
 })
 
 module.exports = router;

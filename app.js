@@ -5,9 +5,9 @@ app.set('view engine', 'ejs')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
-const dbModel = require('./models/index');
-const Contact = require('./models/contact');
-const Group = require('./models/group');
+// const dbModel = require('./models/index');
+// const Contact = require('./models/contact');
+// const Group = require('./models/group');
 // const Profile = require('./models/profile');
 // const Address = require('./models/address');
 
