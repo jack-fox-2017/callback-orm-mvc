@@ -5,10 +5,21 @@ class Contact {
   }
 
   getContacts(callback) {
-    this.conn.all(`select * from ${this.table}`, (err, rows) => {
+    let result = []
+    this.conn.each(`select * from ${this.table}`, (err, row) => {
+      if (err)
+        throw err
+        
+      result.push(row)
+    }, () => {
       if (callback)
-        callback(err, rows)
+        callback(null, result)
     })
+
+    // this.conn.all(`select * from ${this.table}`, (err, rows) => {
+    //   if (callback)
+    //     callback(err, rows)
+    // })
   }
 
   getContactById(contact_id, callback) {

@@ -11,10 +11,21 @@ class GroupContact {
           where ${this.table}.contact_id = ${contact_id}
     `
 
-    this.conn.all(CONTACT_JOIN_GROUPS, (err, rows) => {
+    let result = []
+    this.conn.each(CONTACT_JOIN_GROUPS, (err, row) => {
+      if (err)
+        throw err
+
+      result.push(row)
+    }, () => {
       if (callback)
-        callback(err, rows)
+        callback(null, result)
     })
+
+    // this.conn.all(CONTACT_JOIN_GROUPS, (err, rows) => {
+    //   if (callback)
+    //     callback(err, rows)
+    // })
   }
 
   getJoinWithContacts(group_id, callback) {
@@ -24,10 +35,21 @@ class GroupContact {
           where ${this.table}.group_id = ${group_id}
     `
 
-    this.conn.all(CONTACT_JOIN_GROUPS, (err, rows) => {
+    let result = []
+    this.conn.each(CONTACT_JOIN_GROUPS, (err, row) => {
+      if (err)
+        throw err
+
+      result.push(row)
+    }, () => {
       if (callback)
-        callback(err, rows)
+        callback(null, result)
     })
+
+    // this.conn.all(CONTACT_JOIN_GROUPS, (err, rows) => {
+    //   if (callback)
+    //     callback(err, rows)
+    // })
   }
 
   getJoinWithGroupsChecked(contact_id, callback) {
@@ -37,10 +59,21 @@ class GroupContact {
           and ${this.table}.contact_id = ${contact_id}
     `
 
-    this.conn.all(CONTACT_JOIN_GROUPS_AND_CHECKED_ID, (err, rows) => {
+    let result = []
+    this.conn.each(CONTACT_JOIN_GROUPS_AND_CHECKED_ID, (err, row) => {
+      if (err)
+        throw err
+
+      result.push(row)
+    }, () => {
       if (callback)
-        callback(err, rows)
+        callback(null, result)
     })
+
+    // this.conn.all(CONTACT_JOIN_GROUPS_AND_CHECKED_ID, (err, rows) => {
+    //   if (callback)
+    //     callback(err, rows)
+    // })
   }
 
   getJoinWithContactsChecked(group_id, callback) {
@@ -50,10 +83,21 @@ class GroupContact {
           and ${this.table}.group_id = ${group_id}
     `
 
-    this.conn.all(CONTACT_JOIN_CONTACTS_AND_CHECKED_ID, (err, rows) => {
+    let result = []
+    this.conn.each(CONTACT_JOIN_CONTACTS_AND_CHECKED_ID, (err, row) => {
+      if (err)
+        throw err
+
+      result.push(row)
+    }, () => {
       if (callback)
-        callback(err, rows)
+        callback(null, result)
     })
+
+    // this.conn.all(CONTACT_JOIN_CONTACTS_AND_CHECKED_ID, (err, rows) => {
+    //   if (callback)
+    //     callback(err, rows)
+    // })
   }
 
   insertConjunction(objData, callback) {
