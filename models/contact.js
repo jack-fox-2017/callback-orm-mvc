@@ -25,48 +25,29 @@ class Contact {
   }
 
   getContact(conn, callback) {
-    // conn.all(`SELECT * FROM contacts`, (errA, rowsA) => {
-    //   if (errA) throw errA
 
-    //   conn.serialize(function () {
-    //     rowsA.forEach((item, index) => {
-    //       rowsA[index].name_of_group = []
-    //       conn.all(`SELECT name_of_group FROM groups WHERE contact_id=${item.id}`, (err, rows) => {
-    //         rowsA[index].name_of_group = rows.map(x => { return x.street })
-    //       })
-    //     })
-
-    //     conn.all(`SELECT id, name FROM contacts`, (errC, rowsC) => {
-    //       res.render('addresses_with_contact', {
-    //         data: rowsA,
-    //         contacts: rowsC
-    //       })
-    //     })
-    //   })
-    // })
-
-
-
-    // conn.all(`select * from contacts`, function (err, roww) {
-    //   if (!err) {
-    //     roww.forEach( cont => {
-    //       conn.all(`select * from bridge where bridge.contact_id = ${cont.id}`, function (errs, rowws) {
-    //         console.log(rowws);
-    //         callback(false, roww, rowws)
-    //       })
-    //     })
-    //   }
-    // })
-
-
-    conn.all(`select contacts.id, contacts.name, contacts.company, contacts.email, contacts.telp_number, bridge.contact_id, bridge.group_id, groups.name_of_group, addresses.alamat, addresses.contacts_id, addresses.kodepos
-      from contacts left join bridge on contacts.id = bridge.contact_id
-      left join groups on bridge.group_id = groups.id
-      left join addresses on contacts.id = addresses.contacts_id`, function (err, rows) {
-        if (!err) {
-          callback(false, rows)
-        }
-      })
+    conn.all(`select * from contacts`, function (err, roww) {
+      if (!err) {
+        var num = 0
+        roww.forEach(cont => {
+          cont['grupName'] = [];
+          conn.all(`select bridge.*, groups.id as grupId, groups.name_of_group from bridge 
+          left join groups on grupId = bridge.group_id where bridge.contact_id = ${cont.id}`, function (errs, rowws) {
+            rowws.forEach(r => {
+              if (cont.id === r.contact_id) {
+                cont['grupName'].push(r.name_of_group);
+              }
+            })
+            // console.log(roww);
+            num++
+            if (num == roww.length) {
+              // console.log(rowws);
+              callback(false, roww, rowws)
+            }
+          })
+        })
+      }
+    })
   }
 
 

@@ -12,9 +12,14 @@ class Profile {
       if (!err) {
         var num = 0
         rowsP.forEach(prof => {
+          prof['name'] = []
           conn.all(`SELECT * FROM contacts where id = ${prof.contacts_id}`, function (err, rowsC) {
             if (!err) {
-              rowsP[num]['name'] = rowsC[0].name;
+              rowsC.forEach(cont => {
+                if (prof.contacts_id === cont.id) {
+                  prof['name'].push(cont.name);
+                }
+              })
               console.log(rowsP);
               num++
               if (num == rowsP.length) { 

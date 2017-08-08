@@ -10,11 +10,12 @@ var db = new setup('./db/data.db');
 
 // LIST
 router.get('/', function (req, res) {
-  cont.getContact(db.connection, function (err, rows) {
+  cont.getContact(db.connection, function (err, rows, row) {
     if (!err) {
       // res.send(rows)
       res.render('contacts', {
-        data: rows
+        data: rows,
+        dataG: row
       })
     }
   })

@@ -9,16 +9,10 @@ var db = new setup('./db/data.db');
 
 // LIST
 router.get('/', function (req, res) {
-  grup.getGroup(db.connection, function (err, rowa) {
+  grup.getGroup(db.connection, function (err, rowa, row) {
     if (!err) {
-      grup.getBridge(db.connection, function (err, rows, row) {
-        if (!err) {
-          res.render('groups', {
-            dataG: rows,
-            dataC: row,
-            dataA: rowa
-          })
-        }
+      res.render('groups', {
+        dataA: rowa
       })
     }
   })

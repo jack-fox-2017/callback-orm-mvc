@@ -25,11 +25,26 @@ class Group {
 
 
   getGroup(conn, callback) {
-    conn.all(`select distinct groups.id, contacts.name, contacts.company, contacts.email, contacts.telp_number, bridge.contact_id, bridge.group_id, groups.name_of_group
-      from groups left join bridge on groups.id = bridge.group_id
-      left join contacts on bridge.contact_id = contacts.id`, function (err, rowa) {
+    conn.all(`select * from groups`, function (err, roww) {
       if (!err) {
-        callback(false, rowa)
+        var num = 0
+        roww.forEach(cont => {
+          cont['name'] = [];
+          conn.all(`select bridge.*, contacts.id as contId, contacts.name from bridge 
+          left join contacts on contId = bridge.contact_id where bridge.group_id = ${cont.id}`, function (errs, rowws) {
+            rowws.forEach(r => {
+              if (cont.id === r.group_id) {
+                cont['name'].push(r.name);
+              }
+            })
+            // console.log(roww);
+            num++
+            if (num == roww.length) {
+              // console.log(rowws);
+              callback(false, roww, rowws)
+            }
+          })
+        })
       }
     })
   }
