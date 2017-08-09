@@ -36,17 +36,20 @@ router.post('/',(req,res)=>{
 
 router.get('/edit/:id',(req,res)=>{
   address.findById(db, req.params.id, (err,rowsA)=>{
+    console.log("====>>",rowsA);
     contact.findAll(db, (err,rowsC)=>{
-    res.render('edit_address', {dataA:rowsA,dataC:rowsC})
+    res.render('edit_address', {dataA:rowsA[0],dataC:rowsC})
     })
   })
 })
 
 router.post('/edit/:id',(req,res)=>{
-  address.update(db,req.body,req.params.id, (err,rows)=>{
+  address.update(db, req.body,req.params.id, (err,rows)=>{
     res.redirect('/addresses')
   })
+  // res.send(req.body)
 })
+
 
 router.get('/delete/:id',(req,res)=>{
   address.destroy(db, req.params.id)

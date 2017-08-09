@@ -20,6 +20,15 @@ class Contacts{
         callback(true,null)
       }
     })
+    // return new Promise((resolve,reject)=>{
+    //   conn.all(`SELECT * FROM Contacts WHERE id = ${reqparam}`, (err,rows)=>{
+    //     if (!err) {
+    //       resolve(rows)
+    //     }else {
+    //       reject(err)
+    //     }
+    //     })
+    // })
   }
 
   update(conn,req,reqparams,callback){

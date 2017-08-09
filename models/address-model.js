@@ -24,8 +24,8 @@ class Addresses{
 
   update(conn,req,reqparams,callback){
     conn.run(`UPDATE Addresses SET street ='${req.street}',city = '${req.city}',
-    zip_code = '${req.zip_code}', contact_id = ${req.contact_id} WHERE id =${reqparams}`,(err,rows)=>{
-      if(!err){
+    zip_code = '${req.zip_code}', contact_id = ${req.contact_id} WHERE id =${reqparams}`, (err,rows)=>{
+      if (!err) {
         callback(false,rows)
       }else {
         callback(true,null)

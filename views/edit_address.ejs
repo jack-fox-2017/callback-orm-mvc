@@ -13,22 +13,31 @@
       <div class="container">
     <h1 class="title">Edit Address</h1>
     <h2>
-      <%dataA.forEach(function(d){ %>
-      <form action="/addresses/edit/<%=d.id%>" method="post">
+
+      <form action="/addresses/edit/<%=dataA.id%>" method="post">
         Street:<br>
-        <input type="text" name="street" value="<%=d.street%>"><br>
+        <input type="text" name="street" value="<%=dataA.street%>"><br>
         City:<br>
-        <input type="text" name="city" value="<%=d.city%>"> <br>
+        <input type="text" name="city" value="<%=dataA.city%>"> <br>
         Zip Code:<br>
-        <input type="text" name="zip_code" value="<%=d.zip_code%>"><br>
+        <input type="text" name="zip_code" value="<%=dataA.zip_code%>"><br>
         Contact Id:<br>
         <div class="field has-addons has-addons-centered" >
           <div class="control">
             <div class="select">
               <select name="contact_id">
                 Street:<br>
-                <%dataC.forEach(d => {%>
-                <option><%=d.name%></option>
+                <%dataC.forEach(c => {%>
+                  <%
+                    var selected = ""
+                    if(c.id == dataA.contact_id)
+                    {
+                      selected = "selected"
+                    }
+                  %>
+                <option value="<%=c.id%>" <%= selected %>  >
+                  <%=c.name%>
+                </option>
                 <%})%>
               </select>
             </div>
@@ -38,7 +47,7 @@
         <button class="button is-primary" type="submit" name="button">Save Changes</button> <br>
       </form>
     </h2>
-    <%})%>
+
   </div>
 </section>
   </center>

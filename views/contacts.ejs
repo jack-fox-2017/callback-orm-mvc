@@ -16,6 +16,7 @@
       <table class="table">
   <thead>
       <tr>
+        <th>NO</th>
         <th>ID</th>
         <th>Name</th>
         <th>Company</th>
@@ -28,6 +29,7 @@
       <%dataC.forEach(d => {%>
         <tr>
         <td><%=i%><%i+=1%></td>
+        <td><%=d.id%></td>
         <td><%=d.name%></td>
         <td><%=d.company%></td>
         <td><%=d.telp_number%></td>
