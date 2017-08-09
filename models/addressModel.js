@@ -30,13 +30,21 @@ class Address {
   }
 
   static findById(connection, id, callback) {
-    connection.all(`SELECT * FROM Addresses WHERE id=${id}`, (err, data) => {
-      if(!err) {
-        callback(false, data)
-      }
-      else {
-        callback(true, null)
-      }
+    connection.each(`SELECT * FROM Addresses WHERE id=${id}`, (err, data) => {
+      connection.all(`SELECT * FROM Contacts;`, (err2, data2) => {
+        if(!err2) {
+          callback(false, data, data2)
+        }
+        else {
+          callback(true, null, null)
+        }
+      })
+      // if(!err) {
+      //   callback(false, data)
+      // }
+      // else {
+      //   callback(true, null)
+      // }
     })
   }
 

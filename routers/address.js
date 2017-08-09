@@ -35,8 +35,8 @@ router.get('/delete/:id', (req, res) => {
 })
 
 router.get('/edit/:id', (req, res) => {
-  addressModel.findById(conn.connection, req.params.id, (err, data) => {
-    res.render('address_edit', {data: data[0]})
+  addressModel.findById(conn.connection, req.params.id, (err, data, data2) => {
+    res.render('address_edit', {data: data, data2: data2})
   })
 })
 

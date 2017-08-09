@@ -5,12 +5,12 @@
     <title></title>
   </head>
   <body>
-    <form action="/addresses/edit/<%= data[0].id %>" method="post">
-      <input type="text" name="street" placeholder="Street" value="<%= data[0].street %>">
-      <input type="text" name="city" placeholder="city" value="<%= data[0].city %>">
+    <form action="/addresses/edit/<%= data.id %>" method="post">
+      <input type="text" name="street" placeholder="Street" value="<%= data.street %>">
+      <input type="text" name="city" placeholder="city" value="<%= data.city %>">
       <select name="contactId">
           <% for (let i=0; i<data2.length; i++) { %>
-            <% if (data2[i].id == data.UserId) { %>
+            <% if (data2[i].id == data.ContactId) { %>
               <option value="<%= data2[i].id %>" selected><%= data2[i].name %></option>
               <!-- <option value="<%= data2[i].id %>" selected><%= data2[i].firstname %> <%= data2[i].lastname %></option> -->
             <% } else { %>

@@ -28,7 +28,7 @@ class Contact {
   }
 
   static findById(connection, id, callback) {
-    connection.all(`SELECT * FROM Contacts WHERE id=${id}`, (err, data) => {
+    connection.each(`SELECT * FROM Contacts WHERE id=${id}`, (err, data) => {
       if(!err) {
         callback(false, data)
       }

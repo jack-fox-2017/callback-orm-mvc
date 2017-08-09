@@ -27,7 +27,7 @@ router.get('/delete/:id', (req, res) => {
 
 router.get('/edit/:id', (req, res) => {
   contactModel.findById(conn.connection, req.params.id, (err, data) => {
-    res.render('contact_edit', {data: data[0]})
+    res.render('contact_edit', {data: data})
   })
 })
 
