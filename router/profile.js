@@ -11,9 +11,11 @@ var db = new setup('./db/data.db');
 router.get('/', function (req, res) {
   prof.getProfile(db.connection, function (err, rowsP, rowsC) {
     if (!err) {
-      res.render('profiles', {
-        dataP: rowsP,
-        dataContact: rowsC
+      prof.getcontact(db.connection, (err, cont) => {
+        res.render('profiles', {
+          dataP: rowsP,
+          dataContact: cont
+        })
       })
     }
   })

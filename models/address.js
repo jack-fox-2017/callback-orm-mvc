@@ -18,6 +18,7 @@ class Address {
               console.log(rowsP);
               num++
               if (num == rowsP.length) {
+                // console.log(rowsC);
                 callback(false, rowsP, rowsC)
               }
             }
@@ -25,6 +26,12 @@ class Address {
         })
       }
     })
+  }
+
+  getcontact(conn, callback) {
+    conn.all(`select * from contacts`, (err, rows) => {
+      callback(false, rows)
+    })  
   }
 
 

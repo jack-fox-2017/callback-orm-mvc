@@ -13,9 +13,13 @@ var db = new setup('./db/data.db');
 router.get('/', function (req, res) {
   add.getAddress(db.connection, function (err, rowsP, rowsC) {
     if (!err) {
-      res.render('addresses', {
-        dataAddresses: rowsP,
-        dataContact: rowsC
+      add.getcontact(db. connection, function (errs, cont) {
+        if (!errs) {
+          res.render('addresses', {
+            dataAddresses: rowsP,
+            dataContact: cont
+          })
+        }
       })
     }
   })

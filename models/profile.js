@@ -32,6 +32,12 @@ class Profile {
     })
   }
 
+  getcontact(conn, callback) {
+    conn.all(`select * from contacts`, (err, rows) => {
+      callback(false, rows)
+    })
+  }
+
   addProfile(conn, user, conId) {
     conn.run(`INSERT INTO profiles (username, contacts_id)
       VALUES ('${user}', '${conId}');`)
