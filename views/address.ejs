@@ -14,6 +14,7 @@
           <th>City</th>
           <th>zip_code</th>
           <th>Contact ID</th>
+          <th>Name</th>
         </tr>
       </thead>
       <tbody>
@@ -24,6 +25,7 @@
             <td><%= z.city %></td>
             <td><%= z.zip_code %></td>
             <td><%= z.contact_id %></td>
+            <td><%= z.nama %></td>
             <td><a href="/address/edit/<%=z.id%>">Edit</a></td>
             <td><a href="/address/delete/<%=z.id%>">Delete</a></td>
           </tr>

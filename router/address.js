@@ -12,6 +12,17 @@ const connection = database_model.newdatabase
 router.get('/', (req, res)=>{
   address_model.findAll(connection, (err, rowsAddress)=>{
   contacts_model.findAll(connection, (err, rowsContacts)=>{
+    // console.log(rowsContacts);
+    // console.log(rowsAddress[0].contact_id);
+    for (var z = 0; z < rowsAddress.length; z++) {
+      for (var i = 0; i < rowsContacts.length; i++) {
+        if(rowsAddress[z].contact_id==rowsContacts[i].id){
+          rowsAddress[z]['nama'] = rowsContacts[i].name
+        // console.log(rowsAddress);
+        }
+      }
+    }
+    // rowsAddress['name']=
     res.render('address', {data:rowsAddress, dataContacts:rowsContacts})
   })
   })

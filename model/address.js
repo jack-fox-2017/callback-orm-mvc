@@ -8,7 +8,7 @@ class Address{
           callback(null,rows)
         }
         else{
-          callback(err,null)
+          callback(err,nuContactsll)
         }
       })
   }
