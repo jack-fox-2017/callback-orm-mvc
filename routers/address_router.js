@@ -21,22 +21,24 @@ router.get('/',(req,res)=>{
 })
 
 router.get('/',(req,res)=>{
-  res.render('addresses')
+  address.findAll(db, req.body, (err,rowsA)=>{
+    contact.findAll(db, req.body, (err,rowsC)=>{
+  res.render('addresses', {dataA:rowsA, dataC:rowsC})
+  })
+})
 })
 
 router.post('/',(req,res)=>{
-  address.createData(db, req.body, (err,rows)=>{
-    contact.createData(db, req.body, (err,rowsC)=>{
+  address.createData(db, req.body, (err,rowsA)=>{
       res.redirect('/addresses')
-    })
   })
 })
 
 router.get('/edit/:id',(req,res)=>{
   address.findById(db, req.params.id, (err,rowsA)=>{
-    // contact.createData(db, req.params.id, (err,rowsC)=>{
-    res.render('edit_address', {dataA:rowsA})
-    // })
+    contact.findAll(db, (err,rowsC)=>{
+    res.render('edit_address', {dataA:rowsA,dataC:rowsC})
+    })
   })
 })
 
