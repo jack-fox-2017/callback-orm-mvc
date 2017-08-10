@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Address</title>
+  </head>
+  <body>
+    <h1>Address</h1>
+      <table>
+        <tr>
+          <th>Id</th>
+          <th>Street</th>
+          <th>City</th>
+          <th>Zip Code</th>
+          <th>Contact_Id</th>
+          <th>Contact nama</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+        <% data1.forEach(d => {  %>
+        <tr>
+          <td><%= d.id %></td>
+          <td><%= d.street %></td>
+          <td><%= d.city %></td>
+          <td><%= d.zip_code %></td>
+          <td><%= d.contact_id %></td>
+          <td><%= d.name %></td>
+          <td><a href='/address/edit/<%= d.id %>'>edit</a></td>
+          <td><a href="/address/delete/<%= d.id %>">delete</td>
+        </tr>
+        <%  }) %>
+      </table>
+      <form action="/address" method="post">
+          <label>Street</label>
+          <input type="text" name="street" placeholder="Input Your Street">
+          <input type="text" name="city" placeholder="Input Your City">
+          <input type="text" name="zip_code" placeholder="Input Your Zip Code">
+          <label>Contact Id</label>
+          <select type="text" name="contact_id">
+            <%data2.forEach(d => { %>
+          <option value= <%=d.id%>>
+              <%=d.id%>. <%=d.name%>
+          </option>
+            <%})%>
+          </select>
+          <br><br>
+          <button type="submit">Save</button>
+        </fieldset>
+      </form>
+  </body>
+</html>
